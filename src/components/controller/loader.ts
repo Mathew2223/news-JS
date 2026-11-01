@@ -1,4 +1,4 @@
-import { RequestOptions, NewsResponse } from '../../types';
+import { RequestOptions } from '../../types';
 
 export interface LoaderOptions {
     apiKey: string;
