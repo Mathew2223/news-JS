@@ -1,9 +1,9 @@
-import { NewsResponse } from '../../types';
+import { NewsResponse, SourcesResponse } from '../../types';
 import AppLoader from './appLoader';
 
 class AppController extends AppLoader {
-    public getSources(callback: (data: NewsResponse) => void): void {
-        super.getResp<NewsResponse>(
+    public getSources(callback: (data: SourcesResponse) => void): void {
+        super.getResp<SourcesResponse>(
             {
                 endpoint: 'sources',
             },

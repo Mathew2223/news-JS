@@ -38,5 +38,4 @@ export enum Category {
 export type SortBy = 'relevancy' | 'popularity' | 'publishedAt';
 
 export type ArticlePreview = Pick<Article, 'title' | 'url' | 'publishedAt'>
-
 export type RequestOptions = Partial<Record<string, string | number>>;

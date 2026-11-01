@@ -1,6 +1,6 @@
 import AppController from '../controller/controller';
 import { AppView } from '../view/appView';
-import { NewsResponse } from '../../types';
+import { NewsResponse, SourcesResponse } from '../../types';
 
 class App {
     private controller: AppController;
@@ -20,7 +20,7 @@ class App {
                 this.controller.getNews(e, (data: NewsResponse) => this.view.drawNews(data))
             });
         }
-        this.controller.getSources((data: NewsResponse) => this.view.drawSources(data));
+        this.controller.getSources((data: SourcesResponse) => this.view.drawSources(data));
     }
 }
 
