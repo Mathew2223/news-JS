@@ -20,6 +20,11 @@ export interface NewsResponse {
     articles: ReadonlyArray<Article>;
 }
 
+export interface SourcesResponse {
+    status: string;
+    sources: ReadonlyArray<Source>;
+}
+
 export enum Category {
     BUSINESS = 'business',
     ENTERTAINMENT = 'entertainment',
