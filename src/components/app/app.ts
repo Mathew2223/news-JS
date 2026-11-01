@@ -2,12 +2,6 @@ import AppController from '../controller/controller';
 import { AppView } from '../view/appView';
 import { NewsResponse } from '../../types';
 
-
-interface IAppView {
-    drawNews: (data: NewsResponse) => void;
-    drawSources: (data: NewsResponse) => void;
-}
-
 class App {
     private controller: AppController;
     private view: AppView;
