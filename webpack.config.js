@@ -1,40 +1,45 @@
 const path = require('path');
-const { merge } = require('webpack-merge');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
-const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 const DotenvWebpackPlugin = require('dotenv-webpack');
 
-const baseConfig = {
-    entry: path.resolve(__dirname, './src/index.js'),
-    mode: 'development',
-    module: {
-        rules: [
-            {
-                test: /\.css$/i,
-                use: ['style-loader', 'css-loader'],
-            },
+module.exports = (env) => {
+    const isProd = env && env.mode === 'prod';
+
+    return {
+        mode: isProd ? 'production' : 'development',
+        entry: './src/index.ts',
+        module: {
+            rules: [
+                {
+                    test: /\.css$/i,
+                    use: ['style-loader', 'css-loader'],
+                    exclude: /node_modules/,
+                },
+                {
+                    test: /\.tsx?$/i,
+                    use: 'ts-loader',
+                    exclude: /node_modules/,
+                },
+            ],
+        },
+        resolve: {
+            extensions: ['.ts', '.tsx', '.js'],
+        },
+        output: {
+            filename: 'bundle.js',
+            path: path.resolve(__dirname, 'dist'),
+            clean: true,
+        },
+        plugins: [
+            new DotenvWebpackPlugin(),
+            new HtmlWebpackPlugin({
+                template: './src/index.html',
+            }),
         ],
-    },
-    resolve: {
-        extensions: ['.js'],
-    },
-    output: {
-        filename: 'index.js',
-        path: path.resolve(__dirname, './dist'),
-    },
-    plugins: [
-        new DotenvWebpackPlugin(),
-        new HtmlWebpackPlugin({
-            template: path.resolve(__dirname, './src/index.html'),
-            filename: 'index.html',
-        }),
-        new CleanWebpackPlugin(),
-    ],
-};
-
-module.exports = ({ mode }) => {
-    const isProductionMode = mode === 'prod';
-    const envConfig = isProductionMode ? require('./webpack.prod.config') : require('./webpack.dev.config');
-
-    return merge(baseConfig, envConfig);
+        devServer: {
+            static: './dist',
+            port: 3000,
+            open: true,
+        }
+    };
 };
