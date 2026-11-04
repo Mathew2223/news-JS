@@ -5,7 +5,7 @@ class AppController extends AppLoader {
     public getSources(callback: (data: SourcesResponse) => void): void {
         super.getResp<SourcesResponse>(
             {
-                endpoint: 'sources',
+                endpoint: 'mocks/sources',
             },
             callback
         );
@@ -20,14 +20,16 @@ class AppController extends AppLoader {
 
         let currentNode: HTMLElement | null = target;
 
-        while (currentNode !== newsContainer && currentNode !== null) {
+        while (currentNode !== null && currentNode !== newsContainer) {
             if (currentNode.classList.contains('source__item')) {
                 const sourceId = currentNode.getAttribute('data-source-id');
+
                 if (newsContainer.getAttribute('data-source') !== sourceId && sourceId) {
                     newsContainer.setAttribute('data-source', sourceId);
                     super.getResp<NewsResponse>(
                         {
-                            endpoint: 'everything',
+                            // Используем mock-эндпоинт для развернутой версии
+                            endpoint: 'mocks/everything',
                             options: {
                                 sources: sourceId,
                             },
